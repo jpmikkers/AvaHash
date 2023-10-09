@@ -39,7 +39,7 @@ public partial class MainWindow : Window
             {
                 AllowMultiple = false,
                 FileTypeFilter = new[] { FilePickerFileTypes.All },
-                Title = "Select file to upload.."
+                Title = "Select file to hash.."
             }
         );
 
@@ -49,7 +49,7 @@ public partial class MainWindow : Window
     private void DragOverHandler(object? sender, DragEventArgs e)
     {
         var files = e.Data.GetFiles();
-        if(files!=null && files.Count() > 0)
+        if(files is not null && files.Any())
         {
             e.DragEffects = DragDropEffects.Copy;
             e.Handled = true;
@@ -65,9 +65,6 @@ public partial class MainWindow : Window
                 foreach(var file in fileNames)
                 {
                     await viewModel.Calculate(file.Path);
-                    //viewModel.Greeting = file.Path.ToString();
-
-                    //ViewModel.Attachments.Add(new AttachmentLink(file));
                 }
             }
         }
