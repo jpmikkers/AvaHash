@@ -12,7 +12,7 @@ AvaHash was tested on Windows 11 and Linux, but should also work on MacOS.
 
 First make sure to install the dotnet 7 sdk as per these instructions: [https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70)
 
-To build, go to the AvaHash subdirectory that contains AvaHash.csproj. Then run the following commands:
+To build, go to the AvaHash subdirectory that contains `AvaHash.csproj`. Then run the following commands:
 
     dotnet restore
     dotnet run --configuration Release
@@ -23,10 +23,14 @@ First make sure to install the dotnet 7 sdk as per these instructions: [https://
 
 You can double check which .net sdk you have installed via the following command:
 
-    user@BlinkUbuntu:~/.local/share$ dotnet --list-sdks
+    user@Ubuntu:~/.local/share$ dotnet --list-sdks
     7.0.101 [/usr/share/dotnet/sdk]
+    
+    user@Ubuntu:~/.local/share$ dotnet --list-runtimes
+    Microsoft.AspNetCore.App 7.0.1 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+    Microsoft.NETCore.App 7.0.1 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 
-To build and run, cd to the BlinkTorrent subdirectory that contains BlinkTorrent.csproj. Then run the following commands:
+To build and run, cd to the AvaHash subdirectory that contains `AvaHash.csproj`. Then run the following commands:
 
     dotnet restore
     dotnet run --configuration Release
