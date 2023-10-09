@@ -1,0 +1,132 @@
+<Window
+    x:Class="AvaHash.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AvaHash.ViewModels"
+    Title="AvaHash"
+    Width="500"
+    Height="300"
+    d:DesignHeight="300"
+    d:DesignWidth="500"
+    x:DataType="vm:MainWindowViewModel"
+    DragDrop.AllowDrop="True"
+    Icon="/Assets/avalonia-logo.ico"
+    mc:Ignorable="d">
+
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="MyBorderColor">DarkGray</SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="MyBorderColor">DarkGray</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+        <StreamGeometry x:Key="path_copy_content">M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z</StreamGeometry>
+    </Window.Resources>
+
+    <!--
+	    <Window.Styles>
+            <Style Selector="Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource MyBorderColor}" />
+                <Setter Property="BorderThickness" Value="3"/>
+            </Style>
+        </Window.Styles>
+	-->
+
+    <!--
+	    <ThemeVariantScope RequestedThemeVariant="Light" >
+	    </ThemeVariantScope>
+	-->
+
+    <DockPanel>
+        <Border
+            Margin="4,4,4,0"
+            Padding="2"
+            BorderBrush="{DynamicResource MyBorderColor}"
+            BorderThickness="2,2,2,0"
+            ClipToBounds="True"
+            CornerRadius="6,6,0,0"
+            DockPanel.Dock="Top">
+            <DockPanel>
+                <Button
+                    Margin="2"
+                    VerticalAlignment="Center"
+                    Command="{CompiledBinding SelectFileCommand}"
+                    DockPanel.Dock="Right"
+                    ToolTip.Tip="Select file">
+                    ...
+                </Button>
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsTabStop="False"
+                    Text="{Binding Filename}" />
+            </DockPanel>
+        </Border>
+
+        <Grid Margin="4,0,4,4" Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListBox
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                BorderBrush="{DynamicResource MyBorderColor}"
+                BorderThickness="2"
+                CornerRadius="0,0,0,0"
+                ItemsSource="{Binding HashResults}"
+                ScrollViewer.AllowAutoHide="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="AHashType" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="{CompiledBinding HashType}" />
+                            <Button
+                                Grid.Column="1"
+                                Margin="0,0,5,0"
+                                Command="{CompiledBinding CopyToClipboard}"
+                                CommandParameter="{Binding}"
+                                ToolTip.Tip="{CompiledBinding HashType,
+                                                              StringFormat='Copy {0} to clipboard'}">
+                                <PathIcon
+                                    Width="15"
+                                    Height="15"
+                                    Data="{StaticResource path_copy_content}" />
+                            </Button>
+                            <TextBox
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource FixedWidthHexFont}"
+                                IsReadOnly="True"
+                                Text="{CompiledBinding Hash}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+
+</Window>
