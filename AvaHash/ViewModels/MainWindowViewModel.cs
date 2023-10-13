@@ -54,11 +54,22 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private async Task SelectFile()
     {
-        var response = await WeakReferenceMessenger.Default.Send<AsyncRequestMessage<SelectedFile>>();
-
-        if(response is not null && response.Path is not null)
+        try
         {
-            await Calculate(response.Path);
+            var response = await WeakReferenceMessenger.Default.Send<AsyncRequestMessage<SelectedFile>>();
+
+            if(response is not null && response.Path is not null)
+            {
+                await Calculate(response.Path);
+            }
+        }
+        catch(Exception ex)
+        {
+            await WeakReferenceMessenger.Default.Send(
+                new ShowErrorDialogAsyncRequestMessage() {
+                    Title = "AvaHash Error",
+                    Message = ex.ToString(), 
+                });
         }
     }
 }

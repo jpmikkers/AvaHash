@@ -42,4 +42,11 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\ErrorDialog.axaml.cs">
+      <DependentUpon>ErrorDialog.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

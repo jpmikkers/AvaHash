@@ -1,3 +1,4 @@
+#if NEVER
 namespace AvaHash;
 using AvaHash.ViewModels;
 using Avalonia.Controls;
@@ -29,3 +30,4 @@ public class ViewLocator : IDataTemplate
         return data is ViewModelBase;
     }
 }
+#endif
