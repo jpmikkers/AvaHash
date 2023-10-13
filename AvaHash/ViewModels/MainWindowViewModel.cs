@@ -56,11 +56,12 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            var response = await WeakReferenceMessenger.Default.Send<AsyncRequestMessage<SelectedFile>>();
+            var response = await WeakReferenceMessenger.Default.Send(
+                new ShowSelectFileDialogAsyncRequestMessage());
 
-            if(response is not null && response.Path is not null)
+            if(response is not null)
             {
-                await Calculate(response.Path);
+                await Calculate(response);
             }
         }
         catch(Exception ex)

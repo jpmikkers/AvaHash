@@ -21,9 +21,9 @@ public partial class MainWindow : Window
         AddHandler(DragDrop.DropEvent, DropHandler);
 
         // see: https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/messenger
-        WeakReferenceMessenger.Default.Register<MainWindow, AsyncRequestMessage<SelectedFile>>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<MainWindow, ShowSelectFileDialogAsyncRequestMessage>(this, (r, m) =>
         {
-            m.Reply(SelectFile());
+            m.Reply(ShowSelectFileDialog());
         });
 
         WeakReferenceMessenger.Default.Register<MainWindow, ShowErrorDialogAsyncRequestMessage>(this, (r, m) =>
@@ -40,7 +40,7 @@ public partial class MainWindow : Window
         });
     }
 
-    private async Task<SelectedFile> SelectFile()
+    private async Task<Uri?> ShowSelectFileDialog()
     {
         var files = await StorageProvider.OpenFilePickerAsync(
             new FilePickerOpenOptions
@@ -51,8 +51,9 @@ public partial class MainWindow : Window
             }
         );
 
-        return files.Count>0 ? new SelectedFile() { Path = files[0].Path } : new SelectedFile();
+        return files.Count > 0 ? files[0].Path : null;
     }
+
 
     private void DragOverHandler(object? sender, DragEventArgs e)
     {
