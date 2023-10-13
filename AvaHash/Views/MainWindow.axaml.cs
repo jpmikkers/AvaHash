@@ -28,7 +28,7 @@ public partial class MainWindow : Window
 
         WeakReferenceMessenger.Default.Register<MainWindow, ShowErrorDialogAsyncRequestMessage>(this, (r, m) =>
         {
-            m.Reply(ErrorDialog.ShowDialog(this, m.Title, m.Message));
+            m.Reply(ErrorDialog.ShowDialog(r, m.Title, m.Message));
         });
 
         WeakReferenceMessenger.Default.Register<MainWindow, HashResult>(this, async (r, m) =>
