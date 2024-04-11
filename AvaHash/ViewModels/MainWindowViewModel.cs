@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _filename = "<select or drag-drop file into window to calculate hashes>";
 
-    public ObservableCollection<HashResult> HashResults { get; } = new ObservableCollection<HashResult>();
+    public ObservableCollection<HashResult> HashResults { get; } = [];
 
     private static async Task<string> CalculateHashAsync(Func<HashAlgorithm> hasherFactory,string file)
     {
@@ -40,7 +39,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
             if(File.Exists(filename))
             {
-                FileInfo fi = new FileInfo(filename);
+                var fi = new FileInfo(filename);
                 HashResults.Add(new HashResult { HashType = "File size", Hash = fi.Length.ToString() });
                 HashResults.Add(new HashResult { HashType = "MD5", Hash = await CalculateHashAsync(MD5.Create, filename) });
                 HashResults.Add(new HashResult { HashType = "SHA1", Hash = await CalculateHashAsync(SHA1.Create, filename) });
