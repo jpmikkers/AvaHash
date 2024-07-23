@@ -30,7 +30,8 @@ public partial class MainWindowViewModel : ViewModelBase
         for(int i = 0; i < 20; i++)
         {
             HashResults.Add(new HashResult { Hash = RandStr(), HashType = RandStr() });
-            await Task.Delay(10);
         }
+
+        await Task.CompletedTask;
     }
 }
