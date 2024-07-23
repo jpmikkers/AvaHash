@@ -8,8 +8,6 @@
     Title="AvaHash"
     Width="500"
     Height="300"
-    MinWidth="100"
-    MinHeight="100"
     d:DesignHeight="300"
     d:DesignWidth="500"
     x:DataType="vm:MainWindowViewModel"
@@ -25,66 +23,17 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="MyBorderColor">DarkGray</SolidColorBrush>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="MyBorderColor">DarkGray</SolidColorBrush>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-        <StreamGeometry x:Key="path_copy_content">M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z</StreamGeometry>
-    </Window.Resources>
-
-    <!--
-	    <Window.Styles>
-            <Style Selector="Border">
-                <Setter Property="BorderBrush" Value="{DynamicResource MyBorderColor}" />
-                <Setter Property="BorderThickness" Value="3"/>
-            </Style>
-        </Window.Styles>
-	-->
-
-    <!--
-	    <ThemeVariantScope RequestedThemeVariant="Light" >
-	    </ThemeVariantScope>
-	-->
-
     <DockPanel>
-        <Border
-            Margin="4,4,4,0"
-            Padding="2"
-            BorderBrush="{DynamicResource MyBorderColor}"
-            BorderThickness="2,2,2,0"
-            ClipToBounds="True"
-            CornerRadius="6,6,0,0"
+        <Button
+            VerticalAlignment="Center"
+            Command="{CompiledBinding FillListCommand}"
             DockPanel.Dock="Top">
-            <DockPanel>
-                <Button
-                    Margin="2"
-                    VerticalAlignment="Center"
-                    Command="{CompiledBinding SelectFileCommand}"
-                    DockPanel.Dock="Right"
-                    ToolTip.Tip="Select file">
-                    ...
-                </Button>
-                <TextBlock
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    IsTabStop="False"
-                    Text="{Binding Filename}" />
-            </DockPanel>
-        </Border>
+            Fill List
+        </Button>
 
         <ListBox
-            Margin="4,0,4,4"
             HorizontalAlignment="Stretch"
-            BorderBrush="{DynamicResource MyBorderColor}"
-            BorderThickness="2"
-            CornerRadius="0,0,0,0"
+            BorderBrush="Black"
             Grid.IsSharedSizeScope="True"
             ItemsSource="{Binding HashResults}"
             ScrollViewer.AllowAutoHide="False"
@@ -105,23 +54,15 @@
                             Text="{CompiledBinding HashType}" />
                         <Button
                             Grid.Column="1"
-                            Margin="0,0,5,0"
-                            Command="{CompiledBinding CopyToClipboard}"
-                            CommandParameter="{Binding}"
-                            ToolTip.Tip="{CompiledBinding HashType,
-                                                          StringFormat='Copy {0} to clipboard'}">
-                            <PathIcon
-                                Width="15"
-                                Height="15"
-                                Data="{StaticResource path_copy_content}" />
+                            Margin="0,0,5,0">
+							?
                         </Button>
-                        <TextBox
+						<TextBox
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource FixedWidthHexFont}"
                             IsReadOnly="True"
                             Text="{CompiledBinding Hash}" />
-                    </Grid>
+					</Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
