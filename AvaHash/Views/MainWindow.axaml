@@ -8,6 +8,8 @@
     Title="AvaHash"
     Width="500"
     Height="300"
+    MinWidth="100"
+    MinHeight="100"
     d:DesignHeight="300"
     d:DesignWidth="500"
     x:DataType="vm:MainWindowViewModel"
@@ -77,56 +79,52 @@
             </DockPanel>
         </Border>
 
-        <Grid Margin="4,0,4,4" Grid.IsSharedSizeScope="True">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <ListBox
-                Grid.Row="0"
-                HorizontalAlignment="Stretch"
-                BorderBrush="{DynamicResource MyBorderColor}"
-                BorderThickness="2"
-                CornerRadius="0,0,0,0"
-                ItemsSource="{Binding HashResults}"
-                ScrollViewer.AllowAutoHide="False"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Auto">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="AHashType" />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Column="0"
-                                Margin="0,0,5,0"
-                                VerticalAlignment="Center"
-                                Text="{CompiledBinding HashType}" />
-                            <Button
-                                Grid.Column="1"
-                                Margin="0,0,5,0"
-                                Command="{CompiledBinding CopyToClipboard}"
-                                CommandParameter="{Binding}"
-                                ToolTip.Tip="{CompiledBinding HashType,
-                                                              StringFormat='Copy {0} to clipboard'}">
-                                <PathIcon
-                                    Width="15"
-                                    Height="15"
-                                    Data="{StaticResource path_copy_content}" />
-                            </Button>
-                            <TextBox
-                                Grid.Column="2"
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource FixedWidthHexFont}"
-                                IsReadOnly="True"
-                                Text="{CompiledBinding Hash}" />
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Grid>
+        <ListBox
+            Margin="4,0,4,4"
+            HorizontalAlignment="Stretch"
+            BorderBrush="{DynamicResource MyBorderColor}"
+            BorderThickness="2"
+            CornerRadius="0,0,0,0"
+            Grid.IsSharedSizeScope="True"
+            ItemsSource="{Binding HashResults}"
+            ScrollViewer.AllowAutoHide="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="AHashType" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Text="{CompiledBinding HashType}" />
+                        <Button
+                            Grid.Column="1"
+                            Margin="0,0,5,0"
+                            Command="{CompiledBinding CopyToClipboard}"
+                            CommandParameter="{Binding}"
+                            ToolTip.Tip="{CompiledBinding HashType,
+                                                          StringFormat='Copy {0} to clipboard'}">
+                            <PathIcon
+                                Width="15"
+                                Height="15"
+                                Data="{StaticResource path_copy_content}" />
+                        </Button>
+                        <TextBox
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource FixedWidthHexFont}"
+                            IsReadOnly="True"
+                            Text="{CompiledBinding Hash}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 
 </Window>
