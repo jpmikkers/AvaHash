@@ -85,7 +85,6 @@
             BorderBrush="{DynamicResource MyBorderColor}"
             BorderThickness="2"
             CornerRadius="0,0,0,0"
-            Grid.IsSharedSizeScope="True"
             ItemsSource="{Binding HashResults}"
             ScrollViewer.AllowAutoHide="False"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -94,7 +93,7 @@
                 <DataTemplate>
                     <Grid Margin="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="AHashType" />
+                            <ColumnDefinition Width="80" />
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
